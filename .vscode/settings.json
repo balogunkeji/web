@@ -1,0 +1,6 @@
+{
+    "editor.formatOnSave": true,
+    "workbench.editor.splitSizing": "split",
+    "workbench.panel.defaultLocation": "right",
+    "git.ignoreLimitWarning": true
+}

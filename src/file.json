@@ -1,0 +1,18 @@
+
+    [{
+        "area": "Bariga",
+        "express": "N2000",
+        "regular": "1000"
+    },
+    {
+        "area": "Lagos",
+        "express": "N1000",
+        "regular": "500"   
+    },
+
+    {
+        "area": "Agic",
+        "express": "N2500",
+        "regular": "1500"
+    }
+]
