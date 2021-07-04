@@ -1,7 +1,9 @@
+import { delveryPriceCalculator } from "./calculatePrice";
 
 
 const content = document.querySelector(".form-content");
 const formBtn = document.querySelector(".form-button");
+const addressForm = document.querySelector("#form");
 
 export function demo() {
     (function () {
@@ -17,36 +19,56 @@ export function demo() {
     (function () {
       const btnN = document.querySelector(".btnN");
       btnN.addEventListener("click", (e) => {
-        content.innerHTML = `
-        <form>
+        addressForm.innerHTML = `
+     
           <div class='label'>
           <label class='input-label'>Pickup Address</label>
-          <input type='text' id='input-field'/>
+          <input  name='pickup' type='text' id='pickup'/>
           </div>
           <div class='label'>
-          <label class='input-label'>Pickup Address</label>
-          <input type='text' id='input-field'/>
+          <label class='input-label'>Dropoff Address</label>
+          <input type='text' id='drop'/>
           </div>
-        </form>
-        <div class='delivery'>
+          <div class='delivery'>
           <p>How urgent is your delivery (delivery type)?</p>
-          <button class='express'>Express</button>
-          <button class='regular'>Regular</button>
+          <select id='deliveryOption'>
+          <option value='express'>Express</option>
+          <option value='regular'>Regular</option>
+          </select>
+          <button type="submit">Submit</button>
         </div>
+    
         `;
         e.preventDefault();
-        but();
+        content.appendChild(addressForm)
+      addressForm.addEventListener("submit",handleSubmit)
+      
+
+        // but();
       });
     })();
 
+    
+
+    function handleSubmit(e){
+
+      e.preventDefault();
+      
+      const deliveryOption= document.querySelector("#deliveryOption")
+      const pickup= document.querySelector("#pickup")
+      const dropoff = document.querySelector("#drop");
+     content.innerHTML = delveryPriceCalculator(pickup.value, dropoff.value, deliveryOption.value)
+      console.log(pickup.value, dropoff.value, deliveryOption.value)
+    }
+
     (function (){
       const express = document.querySelector(".express");
-      express.addEventListener("click",(e) =>{
+      // express.addEventListener("click",(e) =>{
 
-      })
+      // })
 
-      const regular = document.querySelector(".regular")
-      regular.addEventListener()
+      // const regular = document.querySelector(".regular")
+      // regular.addEventListener()
 
     })();
 
