@@ -35,6 +35,7 @@ export function demo() {
           </select>
           <button type="submit" >Submit</button>
         </div>
+    
         `;
       e.preventDefault();
       content.appendChild(addressForm);
