@@ -62,6 +62,7 @@ button {
   margin: 20px auto;
   border-bottom-left-radius: 10px;
   border-top-right-radius: 10px;
+  display: inline-block;
 }
 
 button:nth-child(1) {
@@ -113,7 +114,7 @@ select {
 .dropoff {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .pickup input,
@@ -129,13 +130,20 @@ textarea {
 
 .pickup p,
 .dropoff p {
-  padding: 10px 0;
+  padding: 10px 0 15px 0;
   text-align: left;
+}
+
+.buttons {
+  min-width: 100px;
+  width: 100%;
+  background-color: #016a90;
+  color: #fff;
 }
 
 @media screen and (max-width: 480px) {
   .container {
-    width: 90%;
+    width: 95%;
   }
 
   h1 {
@@ -150,11 +158,18 @@ textarea {
   .p {
     align-self: flex-start;
   }
+
+  .pickup input,
+  .dropoff input,
+  textarea {
+    width: 32rem;
+    max-width: 100%;
+  }
 }
 
 @media screen and (min-width: 481px) and (max-width: 600px) {
   .container {
-    width: 65%;
+    width: 85%;
   }
 
   h1 {
@@ -167,9 +182,9 @@ textarea {
   }
 }
 
-@media screen and (min-width: 601px) and (max-width: 860px) {
+@media screen and (min-width: 601px) and (max-width: 992px) {
   .container {
-    width: 60%;
+    width: 75%;
   }
 
   h1 {

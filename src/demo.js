@@ -1,5 +1,4 @@
 import { delveryPriceCalculator } from "./calculatePrice";
-
 const content = document.querySelector(".form-content");
 const formBtn = document.querySelector(".form-button");
 const addressForm = document.querySelector("#form");
@@ -22,24 +21,25 @@ export function demo() {
       addressForm.innerHTML = `
           <div class='label'>
           <label class='input-label'>Pickup Address</label>
-          <input  name='pickup' type='text' id='pickup'/>
+          <input  name='pickUpAddress' type='text' id='pickUpAddress'/>
           </div>
           <div class='label'>
           <label class='input-label'>Dropoff Address</label>
-          <input type='text' id='drop'/>
+          <input type='text' id='drop' name=" dropOffAddress"/>
           </div>
           <div class='delivery'>
           <p>How urgent is your delivery (delivery type)?</p>
-          <select id='deliveryOption'>
+          <select id='deliveryOption' name="deliveryMethod">
           <option value='express'>Express</option>
           <option value='regular'>Regular</option>
           </select>
           <button type="submit" >Submit</button>
         </div>
-    
         `;
       e.preventDefault();
       content.appendChild(addressForm);
+      formBtn.style.display = "none";
+      content.removeChild(content.childNodes[0])
       addressForm.addEventListener("submit", handleSubmit);
     });
   })();
@@ -47,10 +47,10 @@ export function demo() {
   function handleSubmit(e) {
     e.preventDefault();
     const deliveryOption = document.querySelector("#deliveryOption");
-    const pickup = document.querySelector("#pickup");
+    const pickUpAddress = document.querySelector("#pickUpAddress");
     const dropoff = document.querySelector("#drop");
     content.innerHTML = delveryPriceCalculator(
-      pickup.value,
+      pickUpAddress.value,
       dropoff.value,
       deliveryOption.value
     );
@@ -59,7 +59,8 @@ export function demo() {
     <button id="btN">No</button>
     `;
     content.appendChild(formBtn);
-    console.log(pickup.value, dropoff.value, deliveryOption.value);
+    formBtn.style.display = "block";
+    console.log(pickUpAddress.value, dropoff.value, deliveryOption.value);
     proceedBtn();
     cancelBtn();
   }
@@ -78,15 +79,15 @@ export function demo() {
       proceedForm.innerHTML = `
         <div class="pickup">
         <p>Pick-up contact details:</p>
-        <input  name='name' type='text' id='name' placeholder="Contact’s Full Name"/>
-          <input  name='num' type='num' id='pic' placeholder="Pickup phone number"/>
-          <textarea name='describe' type="text" id="text" placeholder="Kindly describe the content of your package"></textarea>
-          <input  name='value' type='num' id='money' placeholder="Monetary value of your package"/>
+        <input  name='fullName' type='text' id='name' placeholder="Contact’s Full Name"/>
+          <input  name='pickUpPhoneNumber' type='num' id='pic' placeholder="Pickup phone number"/>
+          <textarea name='description' type="text" id="text" placeholder="Kindly describe your package"></textarea>
+          <input  name='' type='num' id='money' placeholder="Monetary value of your package"/>
           </div>
         <div class="dropoff">
         <p>Drop off contact details:</p>
-        <input  name='pickup' type='text' id='drop' placeholder="Contact’s Full Name"/>
-        <input  name='value' type='num' id='full' placeholder="Drop off phone number"/>
+        <input  name=' recipientName' type='text' id='drop' placeholder="Contact’s Full Name"/>
+        <input  name='dropOffPhoneNumber' type='num' id='full' placeholder="Drop off phone number"/>
         </div>
         <div class="buts">
         <button class="btnup type="submit">Pickup</button>
@@ -95,34 +96,47 @@ export function demo() {
         </div>
       `;
       content.appendChild(proceedForm);
+      formBtn.style.display = "none";
+      content.removeChild(content.childNodes[0])
       e.preventDefault();
       proceedForm.addEventListener("submit", handleChange);
-      none()
+      none();
     });
   }
 
   function handleChange(e) {
     e.preventDefault();
-    const para = document.createElement("p")
+    const para = document.createElement("p");
     const name = document.getElementById("name");
     const pic = document.getElementById("pic");
     const text = document.getElementById("text");
     const dro = document.getElementById("money");
     const drop = document.getElementById("drop");
     const full = document.getElementById("full");
-    para.innerHTML =  name.value + " " + pic.value  + " " +text.value + " " +dro.value + " " +drop.value + " " +full.value
+    para.innerHTML =
+      name.value +
+      " " +
+      pic.value +
+      " " +
+      text.value +
+      " " +
+      dro.value +
+      " " +
+      drop.value +
+      " " +
+      full.value;
     content.appendChild(para);
-    console.log(name.value, pic.value,text.value,dro.value, drop.value, full.value)
+    proceedForm.style.display = "none";
     // none()
   }
 
-  function none(){
-    const sub = document.querySelector(".none")
-    sub.addEventListener("click",(e)=>{
+  function none() {
+    const sub = document.querySelector(".none");
+    sub.addEventListener("click", (e) => {
       content.innerHTML = `
        
         <div>
-        <label>Name</label>
+        <label>Enter FullName</label>
         <input type="text"/>
         </div>
         <div>
@@ -131,8 +145,8 @@ export function demo() {
         </div>
         <button class="buttons">Submit</button>
        
-      `
+      `;
       e.preventDefault();
-    })
+    });
   }
 }
