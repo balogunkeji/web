@@ -73,26 +73,64 @@ button:focus {
   color: #016a90;
 }
 
-form{
-   display:flex;
-   flex-direction: column; 
-   align-items: center;
-   padding-top: 20px;
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
 }
 
-input{
-    padding: 15px;
-    font-size: 1.6rem;
-    max-width: 100%;
-    width: 30rem;
-    outline: none;
-    background-color: #e4e0e0;
-    border: none;
-    border-radius: 10px;
+input {
+  padding: 15px;
+  font-size: 1.6rem;
+  max-width: 100%;
+  margin-bottom: 15px;
+  width: 30rem;
+  outline: none;
+  background-color: #e4e0e0;
+  border: none;
+  border-radius: 10px;
 }
 
-.button{
-    margin-left: 10px;
+label {
+  font-size: 1.6rem;
+  margin-left: 10px;
+  text-align: justify;
+}
+
+.button {
+  margin-left: 10px;
+}
+
+select {
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 10px;
+  outline: none;
+}
+
+.pickup,
+.dropoff {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pickup input,
+.dropoff input,
+textarea {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #5a5858;
+  background-color: transparent;
+  border-radius: 0;
+  width: 40rem;
+}
+
+.pickup p,
+.dropoff p {
+  padding: 10px 0;
+  text-align: left;
 }
 
 @media screen and (max-width: 480px) {
@@ -109,8 +147,8 @@ input{
     padding-right: 5px;
   }
 
-  .p{
-      align-self:flex-start;
+  .p {
+    align-self: flex-start;
   }
 }
 
