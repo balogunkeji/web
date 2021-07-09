@@ -2,5 +2,8 @@
     "editor.formatOnSave": true,
     "workbench.editor.splitSizing": "split",
     "workbench.panel.defaultLocation": "right",
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "workbench.commandPalette.preserveInput": true,
+    "workbench.colorTheme": "Default High Contrast"
 }

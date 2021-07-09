@@ -42,12 +42,22 @@ h1 {
   background-color: #5a5858;
 }
 
+.contents{
+  display: grid;
+  grid-template-columns: repeat(minmax(300px,1fr));
+}
+
 .form-content {
   align-self: center;
   padding-top: 50px;
   padding-bottom: 30px;
   text-align: center;
   margin: 20px auto;
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }
 
 button {
@@ -104,10 +114,13 @@ label {
 }
 
 select {
-  padding: 10px;
+  padding: 12px 10px;
+  min-width: 100px;
+  width: 100%;
   font-size: 15px;
   border-radius: 10px;
   outline: none;
+  margin-top: 20px;
 }
 
 .pickup,

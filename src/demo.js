@@ -1,4 +1,3 @@
-// import axios from "axios";
 
 const content = document.querySelector(".form-content");
 const formBtn = document.querySelector(".form-button");
@@ -31,10 +30,10 @@ export function demo() {
           <div class='delivery'>
           <p>How urgent is your delivery (delivery type)?</p>
           <select id='deliveryMethod' name="deliveryMethod">
-          <option value='express'>Express</option>
-          <option value='regular'>Regular</option>
+          <option value='express'>express</option>
+          <option value='regular'>regular</option>
           </select>
-          <button type="submit" >Submit</button>
+          <button type="submit" id="amountToPay" class="buttons">Submit</button>
         </div>
         `;
       e.preventDefault();
@@ -46,7 +45,6 @@ export function demo() {
   })();
 
   function handleSubmit(e) {
-    
     const deliveryMethod = document.querySelector("#deliveryMethod");
     const pickUpAddress = document.querySelector("#pickUpAddress");
     const dropOffAddress = document.querySelector("#dropOffAddress");
@@ -61,27 +59,37 @@ export function demo() {
     urlencoded.append("pickUpAddress", pickUpAddress.value);
     urlencoded.append("dropOffAddress", dropOffAddress.value);
     urlencoded.append("deliveryMethod", deliveryMethod.value);
+
+    window.localStorage.setItem(
+      "pickupDetails",
+      JSON.stringify({
+        pickup: pickUpAddress.value,
+        dropOff: dropOffAddress.value,
+        deliveryMethod: deliveryMethod.value,
+      })
+    );
+
     var requestOptions = {
       method: "POST",
       headers: myHeaders,
       body: urlencoded,
       redirect: "follow",
     };
-    fetch("https://79baa11cd583.ngrok.io/api/deliveryprice", requestOptions)
-      .then((response) => response.text())
-      .then((text) => {
-        content.innerHTML= `<p>${text}</p>`
-        console.log(text)
+    fetch("https://c073d91ccd4f.ngrok.io/api/deliveryprice", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        content.innerHTML = `<p>The amount to pay is ${data.deliveryOutcome.amountToPay}</p>`;
+        formBtn.innerHTML = `<p>Happy to proceed?</P>
+        <button id="bty">Yes</button>
+        <button id="btN">No</button>`;
+        formBtn.style.display = "block";
+        content.appendChild(formBtn);
+        proceedBtn();
+        cancelBtn();
       })
       .catch((error) => console.log("error", error));
-
     e.preventDefault();
-    formBtn.innerHTML = `<p>Happy to proceed?</P>
-    <button id="bty">Yes</button>
-    <button id="btN">No</button>
-    `;
-    proceedBtn();
-    cancelBtn();
   }
 
   function cancelBtn() {
@@ -106,14 +114,18 @@ export function demo() {
         <div class="dropoff">
         <p>Drop off contact details:</p>
         <input  name=' recipientName' type='text' id='recipientName' placeholder="Contact’s Full Name"/>
-        <input  name='dropOffPhoneNumber' type='num' id='full' placeholder="Drop off phone number"/>
+        <input  name='dropOffPhoneNumber' type='num' id='dropOffPhoneNumber' placeholder="Drop off phone number"/>
         </div>
         <div class="buts">
-        <button class="btnup type="submit">Pickup</button>
-        <button class="btnof" type="submit">Dropoff</button>
-        <button class="none" type="submit">None of the above</button>
+        <select id="routeStatus" name="routeStatus">
+        <option  value="pickup">pickup</option>
+        <option value="dropoff">dropoff</option>
+        <option value="none">none of the above</option>
+        </select>
         </div>
+        <button class="buttons" type="submit">Submit</button>
       `;
+      console.log(proceedForm);
       content.appendChild(proceedForm);
       formBtn.style.display = "none";
       content.removeChild(content.childNodes[0]);
@@ -125,9 +137,9 @@ export function demo() {
 
   function handleChange(e) {
     e.preventDefault();
-    const para = document.createElement("p");
+    const routeStatus = document.getElementById("routeStatus");
     const fullName = document.getElementById("fullName");
-    const pickUpPhoneNumber = document.getElementById("picUpPhoneNumber");
+    const pickUpPhoneNumber = document.getElementById("pickUpPhoneNumber");
     const description = document.getElementById("description");
     const monetary = document.getElementById("monetary");
     const dropOffPhoneNumber = document.getElementById("dropOffPhoneNumber");
@@ -144,28 +156,38 @@ export function demo() {
     urlencoded.append("description", description.value);
     urlencoded.append("monetary", monetary.value);
     urlencoded.append("dropOffPhoneNumber", dropOffPhoneNumber.value);
-    urlencoded.append("recipient", recipient.value);
+    urlencoded.append("recipientName", recipientName.value);
+    urlencoded.append("routeStatus", routeStatus.value);
+    const orderDetails = JSON.parse(
+      window.localStorage.getItem("pickupDetails")
+    );
+
+    urlencoded.append("pickUpAddress", orderDetails.pickup);
+    urlencoded.append("dropOffAddress", orderDetails.dropOff);
+    urlencoded.append("deliveryMethod", orderDetails.deliveryMethod);
     var requestOptions = {
       method: "POST",
       headers: myHeaders,
       body: urlencoded,
-      redirect: "follow",
     };
-    fetch("https://79baa11cd583.ngrok.io/api/order", requestOptions)
-      .then((response) => response.text())
-      .then((text) => {
-        content.innerHTML= `<p>${text}</p>`
-        console.log(text)
-      })
-      .catch((error) => console.log("error", error));
-    proceedForm.style.display = "none";
-    // none()
-  }
-
-  function none() {
-    const sub = document.querySelector(".none");
-    sub.addEventListener("click", (e) => {
-      content.innerHTML = `
+    fetch("https://c073d91ccd4f.ngrok.io/api/save", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        var val = document.getElementById("routeStatus").value;
+        if (val === "pickup") {
+          content.innerHTML = `<p>Full-Name: ${data.orderDetails.fullName}</p>
+          <p> Phone-Number: ${data.orderDetails.pickUpPhoneNumber}</p>
+          <p>Description: ${data.orderDetails.description}</p>
+          <p>Monetary: ${data.orderDetails.monetary}</p>
+          <button><a href=${data.checkoutLink} target="_blank">Pay Here</a></button>
+          `;
+        } else if (val === "dropoff") {
+          content.innerHTML = `<p>Recipient-Name: ${data.orderDetails.recipientName}</p>
+         <p>Recipient-Number: ${data.orderDetails.dropOffPhoneNumber}</p>
+         <button><a href=${data.checkoutLink} target="_blank">Pay Here</a></button>
+         `;
+        } else if (val === "none") {
+          content.innerHTML = `
        
         <div>
         <label>Enter FullName</label>
@@ -178,7 +200,9 @@ export function demo() {
         <button class="buttons">Submit</button>
        
       `;
-      e.preventDefault();
-    });
-  }
+        }
+        console.log(data);
+      })
+      .catch((error) => console.log("error", error)); 
+  } 
 }
