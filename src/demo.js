@@ -1,4 +1,3 @@
-
 const content = document.querySelector(".form-content");
 const formBtn = document.querySelector(".form-button");
 const addressForm = document.querySelector("#form");
@@ -75,7 +74,10 @@ export function demo() {
       body: urlencoded,
       redirect: "follow",
     };
-    fetch("https://c073d91ccd4f.ngrok.io/api/deliveryprice", requestOptions)
+    fetch(
+      "https://delivery-flow.herokuapp.com/api/deliveryprice",
+      requestOptions
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -170,7 +172,7 @@ export function demo() {
       headers: myHeaders,
       body: urlencoded,
     };
-    fetch("https://c073d91ccd4f.ngrok.io/api/save", requestOptions)
+    fetch("https://delivery-flow.herokuapp.com/api/save", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         var val = document.getElementById("routeStatus").value;
@@ -203,6 +205,6 @@ export function demo() {
         }
         console.log(data);
       })
-      .catch((error) => console.log("error", error)); 
-  } 
+      .catch((error) => console.log("error", error));
+  }
 }

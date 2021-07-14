@@ -17,15 +17,29 @@ body {
   line-height: 1.5;
 }
 
+img:nth-child(1) {
+  display: none;
+}
+
 .container {
-  display: flex;
-  flex-direction: column;
-  margin: 100px auto;
-  background-color: #f7f2f2;
-  width: 50%;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+  width: 60%;
   max-width: 100%;
   min-height: 100%;
-  border-radius: 20px;
+  margin: 100px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+img {
+  max-width: 100%;
+  min-height: 100%;
+}
+
+.content {
+  padding: 30px 20px 20px 20px;
 }
 
 h1 {
@@ -33,31 +47,7 @@ h1 {
   font-weight: 700;
   padding-bottom: 10px;
   padding-top: 20px;
-  text-align: center;
-}
-
-.border {
-  height: 2px;
-  max-width: 100%;
-  background-color: #5a5858;
-}
-
-.contents{
-  display: grid;
-  grid-template-columns: repeat(minmax(300px,1fr));
-}
-
-.form-content {
-  align-self: center;
-  padding-top: 50px;
-  padding-bottom: 30px;
-  text-align: center;
-  margin: 20px auto;
-}
-
-a{
-  text-decoration: none;
-  color: black;
+  text-align: justify;
 }
 
 button {
@@ -84,29 +74,36 @@ button:focus {
   color: #016a90;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
 form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
+  display: block;
+  /* flex-direction: column; */
 }
 
 input {
   padding: 15px;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   max-width: 100%;
   margin-bottom: 15px;
-  width: 30rem;
+  width: 40rem;
   outline: none;
-  background-color: #e4e0e0;
+  background-color: #f5efef;
   border: none;
   border-radius: 10px;
 }
 
 label {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   margin-left: 10px;
   text-align: justify;
+}
+
+p {
+  font-size: 2rem;
 }
 
 .button {
@@ -150,17 +147,26 @@ textarea {
 .buttons {
   min-width: 100px;
   width: 100%;
-  background-color: #016a90;
+  background-color: #01a3a4;
   color: #fff;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 650px) {
   .container {
-    width: 95%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 100 auto;
+  }
+
+  img {
+    display: none;
   }
 
   h1 {
     font-size: 3rem;
+    text-align: center;
   }
 
   .form-content {
@@ -178,29 +184,20 @@ textarea {
     width: 32rem;
     max-width: 100%;
   }
-}
-
-@media screen and (min-width: 481px) and (max-width: 600px) {
-  .container {
-    width: 85%;
-  }
-
-  h1 {
-    font-size: 3rem;
-  }
-
-  .form-content {
-    padding-left: 5px;
-    padding-right: 5px;
+  input {
+    width: 40rem;
   }
 }
 
-@media screen and (min-width: 601px) and (max-width: 992px) {
+@media screen and (min-width: 651px) and (max-width: 992px) {
   .container {
-    width: 75%;
+    width: 90%;
   }
 
   h1 {
     font-size: 3.5rem;
+  }
+  input {
+    width: 35rem;
   }
 }
